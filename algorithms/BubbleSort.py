@@ -1,3 +1,4 @@
+sorter = "Bubble"
 def BubbleSort(arr):
     n = len(arr)
 
