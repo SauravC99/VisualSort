@@ -1,4 +1,4 @@
-sorter = "Bubble"
+name = "Bubble"
 def BubbleSort(arr):
     n = len(arr)
 
