@@ -23,6 +23,12 @@ class ArrayTracker():
         self.access_type.append(accessType)
         self.full_copies.append(np.copy(self.arr))
 
+    def GetActivity(self, index=None):
+        if isinstance(index, type(None)):
+            return [(i, operation) for (i, operation) in zip(self.indices, self.access_type)]
+        else:
+            return (self.indices[index], self.access_type[index])
+
     def __getitem__(self, key):
         self.track(key, "get")
         return self.arr.__getitem__(key)
@@ -132,6 +138,14 @@ def updateFrame(frame):
 
     for rectangle, height in zip(container.patches, arr.full_copies[frame]):
         rectangle.set_height(height)
+        rectangle.set_color("#1f77b4") #default color
+
+    index, operation = arr.GetActivity(frame)
+    if operation == "get":
+        container.patches[index].set_color("blue")
+    elif operation == "set":
+        container.patches[index].set_color("red")
+
 
     return(*container,)
 
