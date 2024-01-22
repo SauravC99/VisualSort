@@ -2,6 +2,7 @@ import time
 import numpy as np
 
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 
 
 class ArrayTracker():
@@ -38,6 +39,7 @@ class ArrayTracker():
 plt.rcParams["font.size"] = 16
 plt.rcParams["figure.figsize"] = (12, 8)
 
+FPS = 30.0 #upper limit fps
 
 N = 10
 arr = np.round(np.linspace(50, 1000, N), 0)
@@ -49,7 +51,7 @@ arr = ArrayTracker(arr)
 
 
 
-"""
+
 name = "Insertion"
 t0 = time.perf_counter()
 i = 1
@@ -68,7 +70,6 @@ print(dt)
 print(f"{name} Sort")
 print(f"Array sorted in {dt * 1000:.3f} ms")
 """
-
 name = "Bubble"
 t0 = time.perf_counter()
 n = len(arr)
@@ -85,7 +86,7 @@ for i in range(n):
 dt = time.perf_counter() - t0
 print(f"{name} Sort")
 print(f"Array sorted in {dt * 1000:.3f} ms")
-
+"""
 """
 np.random.shuffle(arr)
 
@@ -124,3 +125,18 @@ fig, ax = plt.subplots()
 container = ax.bar(np.arange(0, len(arr), 1), arr, align="edge")
 ax.set_xlim([0, N])
 ax.set(xlabel="Index", ylabel="Value")
+
+
+
+def updateFrame(frame):
+
+    for rectangle, height in zip(container.patches, arr.full_copies[frame]):
+        rectangle.set_height(height)
+
+    return(*container,)
+
+ani = FuncAnimation(fig=fig, func=updateFrame, frames=range(len(arr.full_copies)),
+                    blit=True, interval=1000.0/FPS, repeat=False)
+
+
+ani.save("test.gif")
