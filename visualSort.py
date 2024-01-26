@@ -9,6 +9,7 @@ from matplotlib.animation import FuncAnimation
 from ArrayTracker import ArrayTracker
 
 from algorithms.BubbleSort import BubbleSort
+from algorithms.InsertionSort import InsertionSort
 
 
 
@@ -34,11 +35,10 @@ np.random.shuffle(arr)
 arr = ArrayTracker(arr)
 
 
-
-
 t0 = time.perf_counter()
 
-e = BubbleSort()
+#e = BubbleSort()
+e = InsertionSort()
 e.sort(arr)
 
 dt = time.perf_counter() - t0
@@ -164,4 +164,4 @@ ani = FuncAnimation(fig=fig, func=updateFrame, frames=range(len(arr.full_copies)
                     blit=True, interval=1000.0/FPS, repeat=False)
 
 
-ani.save("zzztestVid.mp4")#################
+ani.save("zzztestVid.mp4")
