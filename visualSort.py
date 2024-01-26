@@ -6,44 +6,9 @@ from scipy.io import wavfile
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
+from ArrayTracker import ArrayTracker
 
 from algorithms.BubbleSort import BubbleSort
-
-
-class ArrayTracker():
-
-    def __init__(self, arr):
-        self.arr = np.copy(arr)
-        self.reset()
-
-    def reset(self):
-        self.indices = []
-        self.values = []
-        self.access_type = []
-        self.full_copies = []
-
-    def track(self, key, accessType):
-        self.indices.append(key)
-        self.values.append(self.arr[key])
-        self.access_type.append(accessType)
-        self.full_copies.append(np.copy(self.arr))
-
-    def GetActivity(self, index=None):
-        if isinstance(index, type(None)):
-            return [(i, operation) for (i, operation) in zip(self.indices, self.access_type)]
-        else:
-            return (self.indices[index], self.access_type[index])
-
-    def __getitem__(self, key):
-        self.track(key, "get")
-        return self.arr.__getitem__(key)
-    
-    def __setitem__(self, key, value):
-        self.arr.__setitem__(key, value)
-        self.track(key, "set")
-
-    def __len__(self):
-        return self.arr.__len__()
 
 
 
@@ -61,7 +26,7 @@ FREQ_SAMPLE = 44100
 OVERSAMPLE = 2
 
 
-N = 20
+N = 30
 arr = np.round(np.linspace(50, 1000, N), 0)
 np.random.seed(0)
 np.random.shuffle(arr)
@@ -81,10 +46,8 @@ dt = time.perf_counter() - t0
 print(f"{e.getName()} Sort")
 print(f"Array sorted in {dt * 1000:.3f} ms") #multiply by 1000 to get ms and round to 3 decimal points
 
-
-
-#map the value to a frequency between 120 and 1200 Hz
-def frequency_map(x, x_min=50, x_max=1000, frequency_min=120, frequency_max=1200):
+#map the value to a frequency between 360 and 1200 Hz
+def frequency_map(x, x_min=50, x_max=1000, frequency_min=360, frequency_max=1200):
     return np.interp(x, [x_min, x_max], [frequency_min, frequency_max])
 
 def frequency_sample(frequency, dt=1.0/60.0, samplerate=44100, oversample=2):
@@ -116,7 +79,7 @@ for i, value in enumerate(arr.values):
     except ValueError:
         pass
 
-sp.io.wavfile.write(f"zt{e.getName()}_sound.wav", FREQ_SAMPLE, wav_data)
+sp.io.wavfile.write(f"zzz{e.getName()}_sound.wav", FREQ_SAMPLE, wav_data)
 
 
 """
@@ -201,4 +164,4 @@ ani = FuncAnimation(fig=fig, func=updateFrame, frames=range(len(arr.full_copies)
                     blit=True, interval=1000.0/FPS, repeat=False)
 
 
-ani.save("ztestVid.mp4")
+ani.save("zzztestVid.mp4")#################
