@@ -1,5 +1,7 @@
 import time
 import numpy as np
+import scipy as sp
+from scipy.io import wavfile
 
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -52,6 +54,13 @@ plt.rcParams["figure.figsize"] = (12, 8)
 #FPS = 50.0
 FPS = 30.0
 
+
+#Audio Parameters
+#sample frequency
+FREQ_SAMPLE = 44100
+OVERSAMPLE = 2
+
+
 N = 20
 arr = np.round(np.linspace(50, 1000, N), 0)
 np.random.seed(0)
@@ -72,6 +81,42 @@ dt = time.perf_counter() - t0
 print(f"{e.getName()} Sort")
 print(f"Array sorted in {dt * 1000:.3f} ms") #multiply by 1000 to get ms and round to 3 decimal points
 
+
+
+#map the value to a frequency between 120 and 1200 Hz
+def frequency_map(x, x_min=50, x_max=1000, frequency_min=120, frequency_max=1200):
+    return np.interp(x, [x_min, x_max], [frequency_min, frequency_max])
+
+def frequency_sample(frequency, dt=1.0/60.0, samplerate=44100, oversample=2):
+    middle_samples = int(dt * samplerate)
+    padded_samples = int((middle_samples * (oversample - 1) / 2))
+    total_samples = middle_samples + 2 * padded_samples
+
+    sin_wave = np.sin(2 * np.pi * frequency * np.linspace(0, dt, total_samples))
+
+    sin_wave[0:padded_samples] = sin_wave[0:padded_samples] * np.linspace(0, 1, padded_samples)
+    sin_wave[-padded_samples: ] = sin_wave[len(sin_wave)-padded_samples: ] * np.linspace(1, 0, padded_samples)
+
+    return sin_wave
+
+
+wav_data = np.zeros(int(FREQ_SAMPLE * len(arr.values) * 1.0 / FPS), dtype=float)
+#num of values in a chunk (sample length)
+dN = int(FREQ_SAMPLE * 1.0 / FPS)
+
+for i, value in enumerate(arr.values):
+    freq = frequency_map(value)
+    sample = frequency_sample(freq, 1.0 / FPS, FREQ_SAMPLE, oversample=OVERSAMPLE)
+
+    index_0 = int((i + 0.5) * dN - len(sample) / 2)
+    index_1 = index_0 + len(sample)
+
+    try:
+        wav_data[index_0 : index_1] += sample
+    except ValueError:
+        pass
+
+sp.io.wavfile.write(f"zt{e.getName()}_sound.wav", FREQ_SAMPLE, wav_data)
 
 
 """
@@ -156,4 +201,4 @@ ani = FuncAnimation(fig=fig, func=updateFrame, frames=range(len(arr.full_copies)
                     blit=True, interval=1000.0/FPS, repeat=False)
 
 
-ani.save("ztestVid.mp4") 
+ani.save("ztestVid.mp4")
