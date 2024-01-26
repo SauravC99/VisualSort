@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 
+from algorithms.BubbleSort import BubbleSort
+
+
 class ArrayTracker():
 
     def __init__(self, arr):
@@ -45,9 +48,11 @@ class ArrayTracker():
 plt.rcParams["font.size"] = 16
 plt.rcParams["figure.figsize"] = (12, 8)
 
-FPS = 30.0 #upper limit fps
+#FPS = 60.0 #upper limit fps
+#FPS = 50.0
+FPS = 30.0
 
-N = 10
+N = 20
 arr = np.round(np.linspace(50, 1000, N), 0)
 np.random.seed(0)
 np.random.shuffle(arr)
@@ -57,7 +62,19 @@ arr = ArrayTracker(arr)
 
 
 
+t0 = time.perf_counter()
 
+e = BubbleSort()
+e.sort(arr)
+
+dt = time.perf_counter() - t0
+
+print(f"{e.getName()} Sort")
+print(f"Array sorted in {dt * 1000:.3f} ms") #multiply by 1000 to get ms and round to 3 decimal points
+
+
+
+"""
 name = "Insertion"
 t0 = time.perf_counter()
 i = 1
@@ -73,23 +90,6 @@ while (i < len(arr)):
 dt = time.perf_counter() - t0
 print(dt)
 
-print(f"{name} Sort")
-print(f"Array sorted in {dt * 1000:.3f} ms")
-"""
-name = "Bubble"
-t0 = time.perf_counter()
-n = len(arr)
-for i in range(n):
-    swapped = False
-    for j in range(n - 1):
-        if arr[j] > arr[j + 1]:
-            temp = arr[j]
-            arr[j] = arr[j + 1]
-            arr[j + 1] = temp
-            swapped = True
-    if not swapped:
-        break
-dt = time.perf_counter() - t0
 print(f"{name} Sort")
 print(f"Array sorted in {dt * 1000:.3f} ms")
 """
@@ -130,27 +130,30 @@ print(f"Array sorted in {dt * 1000:.3f} ms")
 fig, ax = plt.subplots()
 container = ax.bar(np.arange(0, len(arr), 1), arr, align="edge")
 ax.set_xlim([0, N])
-ax.set(xlabel="Index", ylabel="Value")
+ax.set(xlabel="Index", ylabel="Value", title=f"{e.getName()} Sort")
+text = ax.text(0, 1000, "")
 
 
 
 def updateFrame(frame):
 
+    text.set_text(f" Accesses = {frame}")
     for rectangle, height in zip(container.patches, arr.full_copies[frame]):
         rectangle.set_height(height)
         rectangle.set_color("#1f77b4") #default color
 
     index, operation = arr.GetActivity(frame)
     if operation == "get":
-        container.patches[index].set_color("blue")
+        container.patches[index].set_color("magenta")
     elif operation == "set":
         container.patches[index].set_color("red")
 
+    fig.savefig(f"frames/{e.getName()}_frame{frame:05.0f}.png") #:05.0f format to 5 digits and pad with 0s
 
-    return(*container,)
+    return(*container, text)
 
 ani = FuncAnimation(fig=fig, func=updateFrame, frames=range(len(arr.full_copies)),
                     blit=True, interval=1000.0/FPS, repeat=False)
 
 
-ani.save("test.gif")
+ani.save("ztestVid.mp4") 
