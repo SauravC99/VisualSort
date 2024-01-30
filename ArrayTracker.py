@@ -24,10 +24,15 @@ class ArrayTracker():
         else:
             return (self.indices[index], self.access_type[index])
 
+    def check(self):
+        self.track(0, "nothing")
+        for i in range(len(self.arr)):
+            self.track(i, "check")
+
     def __getitem__(self, key):
         self.track(key, "get")
         return self.arr.__getitem__(key)
-    
+
     def __setitem__(self, key, value):
         self.arr.__setitem__(key, value)
         self.track(key, "set")

@@ -1,7 +1,6 @@
 import time
 import numpy as np
 import scipy as sp
-from scipy.io import wavfile
 
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -43,6 +42,8 @@ e.sort(arr)
 
 dt = time.perf_counter() - t0
 
+arr.check()
+
 print(f"{e.getName()} Sort")
 print(f"Array sorted in {dt * 1000:.3f} ms") #multiply by 1000 to get ms and round to 3 decimal points
 
@@ -82,61 +83,8 @@ for i, value in enumerate(arr.values):
 sp.io.wavfile.write(f"zzz{e.getName()}_sound.wav", FREQ_SAMPLE, wav_data)
 
 
-"""
-name = "Insertion"
-t0 = time.perf_counter()
-i = 1
-while (i < len(arr)):
-    j = i
-    while (j > 0 and arr[j - 1] > arr[j]):
-        temp = arr[j - 1]
-        arr[j - 1] = arr[j]
-        arr[j] = temp
-        j -= 1
-    i += 1
-
-dt = time.perf_counter() - t0
-print(dt)
-
-print(f"{name} Sort")
-print(f"Array sorted in {dt * 1000:.3f} ms")
-"""
-"""
-np.random.shuffle(arr)
-
-name = "Quick"
-def quicksort(arr, lo, hi):
-    if lo < hi:
-        p = partition(arr, lo, hi)
-        quicksort(arr, lo, p - 1)
-        quicksort(arr, p + 1, hi)
-
-def partition(arr, lo, hi):
-    pivot = arr[hi]
-    i = lo
-    for j in range(lo, hi):
-        if arr[j] < pivot:
-            temp = arr[i]
-            arr[i] = arr[j]
-            arr[j] = temp
-            i += 1
-    temp = arr[i]
-    arr[i] = arr[hi]
-    arr[hi] = temp
-    return i
-
-t0 = time.perf_counter()
-quicksort(arr, 0, len(arr) - 1)
-dt = time.perf_counter() - t0
-print(dt)
-
-print(f"{name} Sort")
-print(f"Array sorted in {dt * 1000:.3f} ms")
-"""
-
-
 fig, ax = plt.subplots()
-container = ax.bar(np.arange(0, len(arr), 1), arr, align="edge")
+container = ax.bar(np.arange(0, len(arr), 1), arr.full_copies[0], align="edge")
 ax.set_xlim([0, N])
 ax.set(xlabel="Index", ylabel="Value", title=f"{e.getName()} Sort")
 text = ax.text(0, 1000, "")
@@ -146,15 +94,20 @@ text = ax.text(0, 1000, "")
 def updateFrame(frame):
 
     text.set_text(f" Accesses = {frame}")
-    for rectangle, height in zip(container.patches, arr.full_copies[frame]):
-        rectangle.set_height(height)
-        rectangle.set_color("#1f77b4") #default color
 
     index, operation = arr.GetActivity(frame)
+
+    if not operation == "check":
+        for rectangle, height in zip(container.patches, arr.full_copies[frame]):
+            rectangle.set_height(height)
+            rectangle.set_color("#1f77b4") #default color
+
     if operation == "get":
         container.patches[index].set_color("magenta")
     elif operation == "set":
         container.patches[index].set_color("red")
+    elif operation == "check":
+        container.patches[index].set_color("forestgreen")
 
     fig.savefig(f"frames/{e.getName()}_frame{frame:05.0f}.png") #:05.0f format to 5 digits and pad with 0s
 
