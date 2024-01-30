@@ -11,12 +11,15 @@ class ArrayTracker():
         self.values = []
         self.access_type = []
         self.full_copies = []
+        self.comparisons = 0
+        self.compare_arr = []
 
     def track(self, key, accessType):
         self.indices.append(key)
         self.values.append(self.arr[key])
         self.access_type.append(accessType)
         self.full_copies.append(np.copy(self.arr))
+        self.compare_arr.append(self.comparisons)
 
     def GetActivity(self, index=None):
         if isinstance(index, type(None)):
@@ -31,6 +34,7 @@ class ArrayTracker():
 
     def __getitem__(self, key):
         self.track(key, "get")
+        self.comparisons += 1
         return self.arr.__getitem__(key)
 
     def __setitem__(self, key, value):

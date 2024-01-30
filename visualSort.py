@@ -93,7 +93,7 @@ text = ax.text(0, 1000, "")
 
 def updateFrame(frame):
 
-    text.set_text(f" Accesses = {frame}")
+    text.set_text(f" {arr.compare_arr[frame]} comparisons, {frame} accesses")
 
     index, operation = arr.GetActivity(frame)
 
