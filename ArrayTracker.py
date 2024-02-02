@@ -13,6 +13,7 @@ class ArrayTracker():
         self.full_copies = []
         self.comparisons = 0
         self.compare_arr = []
+        self.track(0, "nothing") #for default frame at begining
 
     def track(self, key, accessType):
         self.indices.append(key)
@@ -28,7 +29,7 @@ class ArrayTracker():
             return (self.indices[index], self.access_type[index])
 
     def check(self):
-        self.track(0, "nothing")
+        self.track(0, "nothing") #add empty frame to reset colors
         for i in range(len(self.arr)):
             self.track(i, "check")
 
