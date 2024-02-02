@@ -1,7 +1,7 @@
-from SortAlgoInterface import SortAlgoInterface
+from InterfaceSortAlgo import InterfaceSortAlgo
 
 #implements SortAlgoInterface
-class BubbleSort(SortAlgoInterface):
+class BubbleSort(InterfaceSortAlgo):
     def sort(self, arr):
         n = len(arr)
 

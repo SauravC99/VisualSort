@@ -1,7 +1,7 @@
-from SortAlgoInterface import SortAlgoInterface
+from InterfaceSortAlgo import InterfaceSortAlgo
 
 #implements SortAlgoInterface
-class InsertionSort(SortAlgoInterface):
+class InsertionSort(InterfaceSortAlgo):
     def sort(self, arr):
         i = 1
 
