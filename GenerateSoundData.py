@@ -9,8 +9,8 @@ class GenerateSoundData():
     
     def generate(self, arr):
 
-        #map the value to a frequency between 360 and 1200 Hz
-        def frequency_map(x, x_min=50, x_max=1000, frequency_min=360, frequency_max=1200):
+        #map the value to a frequency between 360 and 1320 Hz
+        def frequency_map(x, x_min=50, x_max=1000, frequency_min=360, frequency_max=1320):
             return np.interp(x, [x_min, x_max], [frequency_min, frequency_max])
 
         def frequency_sample(frequency, dt=1.0/60.0, samplerate=44100, oversample=2):
