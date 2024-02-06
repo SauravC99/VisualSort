@@ -15,4 +15,4 @@ class InsertionSort(InterfaceSortAlgo):
             i += 1
 
     def getName(self):
-        return "Insertion"
+        return "Insertion Sort"

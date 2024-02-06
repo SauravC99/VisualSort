@@ -17,4 +17,4 @@ class BubbleSort(InterfaceSortAlgo):
                 break
 
     def getName(self):
-        return "Bubble"
+        return "Bubble Sort"
