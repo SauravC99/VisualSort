@@ -28,10 +28,18 @@ class ArrayTracker():
         else:
             return (self.indices[index], self.access_type[index])
 
-    def check(self):
-        self.track(0, "nothing") #add empty frame to reset colors
-        for i in range(len(self.arr)):
-            self.track(i, "check")
+    def check(self, rainbow=False):
+        if rainbow:
+            self.track(0, "nothing") #to reset colors before check
+            for i in range(len(self.arr)):
+                self.track(i, "checkR")
+            self.track(0, "nothing") #add nothing frame to reset colors
+        else:
+            self.track(0, "nothing") #add nothing frame to reset colors before check
+            for i in range(len(self.arr)):
+                self.track(i, "check")
+                #add another check to make end sound nicer
+                self.track(i, "check")
 
     def __getitem__(self, key):
         self.track(key, "get")

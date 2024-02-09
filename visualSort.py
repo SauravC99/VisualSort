@@ -31,8 +31,10 @@ FPS = 60.0 #upper limit fps
 FREQ_SAMPLE = 44100
 OVERSAMPLE = 2
 
+#RAINBOW = False
+RAINBOW = True
 
-N = 100
+N = 40
 arr = np.round(np.linspace(50, 1000, N), 0)
 np.random.seed(0)
 np.random.shuffle(arr)
@@ -49,15 +51,16 @@ e.sort(arr)
 
 dt = time.perf_counter() - t0
 
-arr.check()
+arr.check(RAINBOW)
 
 print(f"{e.getName()}")
 print(f"Array sorted in {dt * 1000:.3f} ms") #multiply by 1000 sec -> ms and round to 3 decimal points
 
 #######################################################
-soundFile = f"z4{e.getName()}_sound.wav"
-vidFile = f"z4{e.getName()}Vid.mp4"
+soundFile = f"zz3{e.getName()}_sound.wav"
+vidFile = f"zz3{e.getName()}Vid.mp4"
 #######################################################
+
 
 s = GenerateSoundData(FPS, FREQ_SAMPLE, OVERSAMPLE)
 wav_data = s.generate(arr)
@@ -66,13 +69,25 @@ sp.io.wavfile.write(soundFile, s.getFreqSample(), wav_data)
 
 
 fig, ax = plt.subplots()
-container = ax.bar(np.arange(0, len(arr), 1), arr.full_copies[0], align="edge", width=1.0)
+if not RAINBOW:
+    container = ax.bar(np.arange(0, len(arr), 1), arr.full_copies[0], align="edge")
+else:
+    #width 1.0 to make rainbow graph look nicer
+    container = ax.bar(np.arange(0, len(arr), 1), arr.full_copies[0], align="edge", width=1.0)
 ax.set_xlim([0, N])
 ax.set(xlabel="Index", ylabel="Value")
 ax.set_title(f"{e.getName()}", loc="left")
 #Make axes ticks and numbers blank
 ax.set_xticks([])
 ax.set_yticks([])
+
+colorDict = {}
+color = plt.colormaps["gist_rainbow"].resampled(N)
+for i in range(N):
+    key  = arr.full_copies[-1][i]
+    num = np.interp(i, [0, N], [0, 1])
+    value = color(num)
+    colorDict[key] = value
 
 def updateFrame(frame):
 
@@ -83,7 +98,10 @@ def updateFrame(frame):
     if not operation == "check":
         for rectangle, height in zip(container.patches, arr.full_copies[frame]):
             rectangle.set_height(height)
-            rectangle.set_color("#1f77b4") #default color
+            if not RAINBOW:
+                rectangle.set_color("#1f77b4") #default color
+            else:
+                rectangle.set_color(colorDict[int(height)])
 
     if operation == "get":
         container.patches[index].set_color("white")
@@ -91,6 +109,8 @@ def updateFrame(frame):
         container.patches[index].set_color("red")
     elif operation == "check":
         container.patches[index].set_color("forestgreen")
+    elif operation == "checkR":
+        container.patches[index].set_color("white")
 
     #:05.0f format to 5 digits and pad with 0s
     fig.savefig(f"frames/{e.getName()}_frame{frame:05.0f}.png", bbox_inches="tight", pad_inches=0.4)
