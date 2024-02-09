@@ -10,16 +10,20 @@ from GenerateSoundData import GenerateSoundData
 
 from algorithms.BubbleSort import BubbleSort
 from algorithms.InsertionSort import InsertionSort
+from algorithms.QuickSort import QuickSort
 
 
 
 plt.rcParams["font.size"] = 16
 plt.rcParams["figure.figsize"] = (12, 8)
+plt.style.use("dark_background")
 
 FPS = 60.0 #upper limit fps
 #FPS = 50.0
 #FPS = 30.0
 #FPS = 120.0
+#FPS = 90
+#FPS = 240
 
 
 #Audio Parameters
@@ -28,7 +32,7 @@ FREQ_SAMPLE = 44100
 OVERSAMPLE = 2
 
 
-N = 30
+N = 100
 arr = np.round(np.linspace(50, 1000, N), 0)
 np.random.seed(0)
 np.random.shuffle(arr)
@@ -39,36 +43,40 @@ arr = ArrayTracker(arr)
 t0 = time.perf_counter()
 
 #e = BubbleSort()
-e = InsertionSort()
+#e = InsertionSort()
+e = QuickSort()
 e.sort(arr)
 
 dt = time.perf_counter() - t0
 
 arr.check()
 
-print(f"{e.getName()} Sort")
-print(f"Array sorted in {dt * 1000:.3f} ms") #multiply by 1000 to get ms and round to 3 decimal points
+print(f"{e.getName()}")
+print(f"Array sorted in {dt * 1000:.3f} ms") #multiply by 1000 sec -> ms and round to 3 decimal points
 
-
-
+#######################################################
+soundFile = f"z4{e.getName()}_sound.wav"
+vidFile = f"z4{e.getName()}Vid.mp4"
+#######################################################
 
 s = GenerateSoundData(FPS, FREQ_SAMPLE, OVERSAMPLE)
 wav_data = s.generate(arr)
 
-sp.io.wavfile.write(f"zzz{e.getName()}_sound.wav", s.getFreqSample(), wav_data)
+sp.io.wavfile.write(soundFile, s.getFreqSample(), wav_data)
 
 
 fig, ax = plt.subplots()
-container = ax.bar(np.arange(0, len(arr), 1), arr.full_copies[0], align="edge")
+container = ax.bar(np.arange(0, len(arr), 1), arr.full_copies[0], align="edge", width=1.0)
 ax.set_xlim([0, N])
-ax.set(xlabel="Index", ylabel="Value", title=f"{e.getName()} Sort")
-text = ax.text(0, 1000, "")
-
-
+ax.set(xlabel="Index", ylabel="Value")
+ax.set_title(f"{e.getName()}", loc="left")
+#Make axes ticks and numbers blank
+ax.set_xticks([])
+ax.set_yticks([])
 
 def updateFrame(frame):
 
-    text.set_text(f" {arr.compare_arr[frame]} comparisons, {frame} accesses")
+    ax.set_title(f"{e.getName()} - {arr.compare_arr[frame]} comparisons, {frame} accesses", loc="left")
 
     index, operation = arr.GetActivity(frame)
 
@@ -78,18 +86,19 @@ def updateFrame(frame):
             rectangle.set_color("#1f77b4") #default color
 
     if operation == "get":
-        container.patches[index].set_color("magenta")
+        container.patches[index].set_color("white")
     elif operation == "set":
         container.patches[index].set_color("red")
     elif operation == "check":
         container.patches[index].set_color("forestgreen")
 
-    fig.savefig(f"frames/{e.getName()}_frame{frame:05.0f}.png") #:05.0f format to 5 digits and pad with 0s
+    #:05.0f format to 5 digits and pad with 0s
+    fig.savefig(f"frames/{e.getName()}_frame{frame:05.0f}.png", bbox_inches="tight", pad_inches=0.4)
 
-    return(*container, text)
+    return(*container, )
 
 ani = FuncAnimation(fig=fig, func=updateFrame, frames=range(len(arr.full_copies)),
                     blit=True, interval=1000.0/FPS, repeat=False)
 
 
-ani.save("zzztestVid.mp4")
+ani.save(vidFile)
