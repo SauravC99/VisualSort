@@ -1,6 +1,6 @@
 from InterfaceSortAlgo import InterfaceSortAlgo
 
-#implements SortAlgoInterface
+#implements InterfaceSortAlgo
 class QuickSort(InterfaceSortAlgo):
     def sort(self, arr):
         self.quicksort(arr, 0, len(arr) - 1)

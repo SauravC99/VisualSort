@@ -1,6 +1,6 @@
 from InterfaceSortAlgo import InterfaceSortAlgo
 
-#implements SortAlgoInterface
+#implements InterfaceSortAlgo
 class BubbleSort(InterfaceSortAlgo):
     def sort(self, arr):
         n = len(arr)

@@ -1,6 +1,6 @@
 from InterfaceSortAlgo import InterfaceSortAlgo
 
-#implements SortAlgoInterface
+#implements InterfaceSortAlgo
 class InsertionSort(InterfaceSortAlgo):
     def sort(self, arr):
         i = 1
