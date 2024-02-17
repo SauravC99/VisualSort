@@ -150,3 +150,13 @@ subprocess.call(cmd)
 
 dt = time.perf_counter() - t0
 print(f"Made movie in {dt:.3f} sec")
+
+print("deleting sound file")
+a = ["rm", f"{soundFile}"]
+subprocess.call(a)
+print("deleting frames folder")
+b = ["rm", "-r", "frames"]
+subprocess.call(b)
+print("making folder")
+c = ["mkdir", "frames"]
+subprocess.call(c)
