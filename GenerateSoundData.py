@@ -13,7 +13,7 @@ class GenerateSoundData():
         def frequency_map(x, x_min=50, x_max=1000, frequency_min=360, frequency_max=1320):
             return np.interp(x, [x_min, x_max], [frequency_min, frequency_max])
 
-        def frequency_sample(frequency, dt=1.0/60.0, samplerate=44100, oversample=2):
+        def frequency_sample(frequency, dt=1.0/self.FPS, samplerate=44100, oversample=2):
             middle_samples = int(dt * samplerate)
             padded_samples = int((middle_samples * (oversample - 1) / 2))
             total_samples = middle_samples + 2 * padded_samples
