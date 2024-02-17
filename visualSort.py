@@ -1,6 +1,7 @@
 import time
 import numpy as np
 import scipy as sp
+import subprocess
 
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -13,15 +14,13 @@ from algorithms.InsertionSort import InsertionSort
 from algorithms.QuickSort import QuickSort
 
 
-
 plt.rcParams["font.size"] = 16
 plt.rcParams["figure.figsize"] = (12, 8)
 plt.style.use("dark_background")
 
-FPS = 60.0 #upper limit fps
-#FPS = 50.0
-#FPS = 30.0
-#FPS = 120.0
+FPS = 60 #upper limit fps
+#FPS = 30
+#FPS = 120
 #FPS = 90
 #FPS = 240
 
@@ -31,10 +30,10 @@ FPS = 60.0 #upper limit fps
 FREQ_SAMPLE = 44100
 OVERSAMPLE = 2
 
-#RAINBOW = False
-RAINBOW = True
+RAINBOW = False
+#RAINBOW = True
 
-N = 40
+N = 30
 arr = np.round(np.linspace(50, 1000, N), 0)
 np.random.seed(0)
 np.random.shuffle(arr)
@@ -57,8 +56,8 @@ print(f"{e.getName()}")
 print(f"Array sorted in {dt * 1000:.3f} ms") #multiply by 1000 sec -> ms and round to 3 decimal points
 
 #######################################################
-soundFile = f"zz3{e.getName()}_sound.wav"
-vidFile = f"zz3{e.getName()}Vid.mp4"
+soundFile = f"z{e.getName()}_sound.wav"
+vidFile = f"z{e.getName()}Vid.mp4"
 #######################################################
 
 
@@ -117,8 +116,37 @@ def updateFrame(frame):
 
     return(*container, )
 
+
+print("Generating frames")
+t0 = time.perf_counter()
+
 ani = FuncAnimation(fig=fig, func=updateFrame, frames=range(len(arr.full_copies)),
                     blit=True, interval=1000.0/FPS, repeat=False)
 
 
-ani.save(vidFile)
+#ani.save(vidFile)
+
+for i in range(1, len(arr.full_copies)):
+    updateFrame(i)
+
+dt = time.perf_counter() - t0
+if dt > 60:
+    print(f"{len(arr.full_copies)} frames generated in {dt / 60:.3f} min")
+else:
+    print(f"{len(arr.full_copies)} frames generated in {dt:.3f} sec")
+
+
+print("Making movie")
+t0 = time.perf_counter()
+
+cmd = [ 'ffmpeg', '-loglevel', 'quiet', '-y',
+        '-r', f'{int(FPS)}',
+        '-i', f'frames/{e.getName()}_frame%05d.png',
+        '-i', f'{soundFile}',
+        '-c:v', 'libx264', '-preset', 'veryslow',
+        '-c:a', 'aac', '-crf', '0',
+        '-map', '0:v', '-map', '1:a', f'{vidFile}']
+subprocess.call(cmd)
+
+dt = time.perf_counter() - t0
+print(f"Made movie in {dt:.3f} sec")
