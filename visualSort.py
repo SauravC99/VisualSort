@@ -14,6 +14,9 @@ from algorithms.BubbleSort import BubbleSort
 from algorithms.InsertionSort import InsertionSort
 from algorithms.QuickSort import QuickSort
 
+from enum import Enum
+
+
 
 #Plot Parameters
 plt.rcParams["font.size"] = 16
@@ -33,6 +36,11 @@ def setGlobalVariables(num, fps, rainbow):
     N = num
     FPS = fps
     RAINBOW = rainbow
+
+class AlgoList(Enum):
+    BUBBLESORT = BubbleSort()
+    INSERTIONSORT = InsertionSort()
+    QUICKSORT = QuickSort()
 
 def run(algo: InterfaceSortAlgo):
     array = np.round(np.linspace(50, 1000, N), 0)
@@ -153,7 +161,7 @@ def cleanup():
 
 def main():
     #default values
-    n = 30
+    n = 10
     fps = 60
     rainbow = False
     algo = QuickSort()
