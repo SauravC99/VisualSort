@@ -19,6 +19,12 @@ from enum import Enum
 
 
 
+class AlgoList(Enum):
+    BUBBLESORT = BubbleSort()
+    INSERTIONSORT = InsertionSort()
+    QUICKSORT = QuickSort()
+    SELECTIONSORT = SelectionSort()
+
 #Plot Parameters
 plt.rcParams["font.size"] = 16
 plt.rcParams["figure.figsize"] = (12, 8)
@@ -46,12 +52,6 @@ def precheck():
     if not os.path.exists(path):
         cmd = ["mkdir", "frames"]
         subprocess.call(cmd)
-
-class AlgoList(Enum):
-    BUBBLESORT = BubbleSort()
-    INSERTIONSORT = InsertionSort()
-    QUICKSORT = QuickSort()
-    SELECTIONSORT = SelectionSort()
 
 def run(algo: InterfaceSortAlgo):
     array = np.round(np.linspace(50, 1000, N), 0)
