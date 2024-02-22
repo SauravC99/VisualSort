@@ -179,7 +179,11 @@ def main(args):
     if args.fps:
         fps = args.fps
     if args.algorithm:
-        algo = AlgoList[args.algorithm.upper()].value
+        if args.algorithm.upper() not in AlgoList.__members__.keys():
+            print("Algorithm not found. Run with '-l' flag to see algorithm list")
+            exit(1)
+        else:
+            algo = AlgoList[args.algorithm.upper()].value
     
     precheck()
     setGlobalVariables(n, fps, args.rainbow)
