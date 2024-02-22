@@ -37,6 +37,15 @@ def setGlobalVariables(num, fps, rainbow):
     FPS = fps
     RAINBOW = rainbow
 
+#make frames folder if it does not exist
+def precheck():
+    import os
+
+    path = "frames/"
+    if not os.path.exists(path):
+        cmd = ["mkdir", "frames"]
+        subprocess.call(cmd)
+
 class AlgoList(Enum):
     BUBBLESORT = BubbleSort()
     INSERTIONSORT = InsertionSort()
@@ -166,6 +175,7 @@ def main():
     rainbow = False
     algo = QuickSort()
     
+    precheck()
     setGlobalVariables(n, fps, rainbow)
     run(algo)
     cleanup()
