@@ -7,7 +7,7 @@ import subprocess
 import matplotlib.pyplot as plt
 
 from ArrayTracker import ArrayTracker
-from GenerateSoundData import GenerateSoundData
+from sound.GenerateSoundData import GenerateSoundData
 from InterfaceSortAlgo import InterfaceSortAlgo
 
 from algorithms.BubbleSort import BubbleSort
