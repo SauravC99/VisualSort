@@ -179,3 +179,17 @@ def main():
     setGlobalVariables(n, fps, rainbow)
     run(algo)
     cleanup()
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-l", "--list", action="store_true",
+                        help="Display the list of sorting algorithms avaliable.")
+    args = parser.parse_args()
+
+    if args.list:
+        for algorithm in AlgoList:
+            print(algorithm.name)
+    else:
+        main()
