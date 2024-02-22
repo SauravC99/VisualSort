@@ -168,15 +168,21 @@ def cleanup():
     c = ["mkdir", "frames"]
     subprocess.call(c)
 
-def main():
+def main(args):
     #default values
     n = 10
     fps = 60
-    rainbow = False
-    algo = QuickSort()
+    algo = InsertionSort()
+
+    if args.number:
+        n = args.number
+    if args.fps:
+        fps = args.fps
+    if args.algorithm:
+        algo = AlgoList[args.algorithm.upper()].value
     
     precheck()
-    setGlobalVariables(n, fps, rainbow)
+    setGlobalVariables(n, fps, args.rainbow)
     run(algo)
     cleanup()
 
@@ -186,10 +192,18 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--list", action="store_true",
                         help="Display the list of sorting algorithms avaliable.")
+    parser.add_argument("-a", "--algorithm",
+                        help="Specify which sorting algorithm to use. Run with '-l' to see the list.")
+    parser.add_argument("-n", "--number", type=int,
+                        help="Specify the number of elements you want to animate sorting. Default 10.")
+    parser.add_argument("-f", "--fps", type=int,
+                        help="Specify how many frames per second the animation will run. Default 60.")
+    parser.add_argument("-r", "--rainbow", action="store_true",
+                        help="Use this flag to make the graph colorful.")
     args = parser.parse_args()
 
     if args.list:
         for algorithm in AlgoList:
             print(algorithm.name)
     else:
-        main()
+        main(args)
