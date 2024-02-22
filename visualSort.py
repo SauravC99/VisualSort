@@ -13,6 +13,7 @@ from InterfaceSortAlgo import InterfaceSortAlgo
 from algorithms.BubbleSort import BubbleSort
 from algorithms.InsertionSort import InsertionSort
 from algorithms.QuickSort import QuickSort
+from algorithms.SelectionSort import SelectionSort
 
 from enum import Enum
 
@@ -50,6 +51,7 @@ class AlgoList(Enum):
     BUBBLESORT = BubbleSort()
     INSERTIONSORT = InsertionSort()
     QUICKSORT = QuickSort()
+    SELECTIONSORT = SelectionSort()
 
 def run(algo: InterfaceSortAlgo):
     array = np.round(np.linspace(50, 1000, N), 0)
@@ -70,11 +72,11 @@ def run(algo: InterfaceSortAlgo):
 
     global soundFile
     if not RAINBOW:
-        soundFile = f"z{algorithm.getName()}_sound.wav"
-        vidFile = f"z{algorithm.getName()}Vid.mp4"
+        soundFile = f"{algorithm.getName()}_sound.wav"
+        vidFile = f"{algorithm.getName()} {N}-{FPS} video.mp4"
     else:
-        soundFile = f"zR{algorithm.getName()}_sound.wav"
-        vidFile = f"zR{algorithm.getName()}Vid.mp4"
+        soundFile = f"{algorithm.getName()}_R_sound.wav"
+        vidFile = f"{algorithm.getName()} R {N}-{FPS} video.mp4"
 
     sound = GenerateSoundData(FPS, FREQ_SAMPLE, OVERSAMPLE)
     soundData = sound.generate(array)
