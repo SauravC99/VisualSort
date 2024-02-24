@@ -38,8 +38,9 @@ class ArrayTracker():
             self.track(0, "nothing") #add nothing frame to reset colors before check
             for i in range(len(self.arr)):
                 self.track(i, "check")
-                #add another check to make end sound nicer
-                self.track(i, "check")
+                #add another check every other frame to make end sound nicer
+                if i % 2 == 0:
+                    self.track(i, "check")
 
     def __getitem__(self, key):
         self.track(key, "get")
