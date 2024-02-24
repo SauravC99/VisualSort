@@ -12,6 +12,7 @@ from InterfaceSortAlgo import InterfaceSortAlgo
 
 from algorithms.BubbleSort import BubbleSort
 from algorithms.InsertionSort import InsertionSort
+from algorithms.MergeSort import MergeSort
 from algorithms.QuickSort import QuickSort
 from algorithms.SelectionSort import SelectionSort
 
@@ -22,6 +23,7 @@ from enum import Enum
 class AlgoList(Enum):
     BUBBLESORT = BubbleSort()
     INSERTIONSORT = InsertionSort()
+    MERGESORT = MergeSort()
     QUICKSORT = QuickSort()
     SELECTIONSORT = SelectionSort()
 
