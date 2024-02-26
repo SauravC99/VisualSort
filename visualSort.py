@@ -15,6 +15,7 @@ from algorithms.InsertionSort import InsertionSort
 from algorithms.InsertionSort2 import InsertionSort2
 from algorithms.MergeSort import MergeSort
 from algorithms.QuickSort import QuickSort
+from algorithms.QuickSortLR import QuickSortLR
 from algorithms.SelectionSort import SelectionSort
 
 from enum import Enum
@@ -27,6 +28,7 @@ class AlgoList(Enum):
     INSERTIONSORT2 = InsertionSort2()
     MERGESORT = MergeSort()
     QUICKSORT = QuickSort()
+    QUICKSORTLR = QuickSortLR()
     SELECTIONSORT = SelectionSort()
 
 #Plot Parameters
