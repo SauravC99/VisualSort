@@ -11,6 +11,7 @@ from sound.GenerateSoundData import GenerateSoundData
 from InterfaceSortAlgo import InterfaceSortAlgo
 
 from algorithms.BubbleSort import BubbleSort
+from algorithms.CocktailSort import CocktailSort
 from algorithms.InsertionSort import InsertionSort
 from algorithms.InsertionSort2 import InsertionSort2
 from algorithms.MergeSort import MergeSort
@@ -24,6 +25,7 @@ from enum import Enum
 
 class AlgoList(Enum):
     BUBBLESORT = BubbleSort()
+    COCKTAILSORT = CocktailSort()
     INSERTIONSORT = InsertionSort()
     INSERTIONSORT2 = InsertionSort2()
     MERGESORT = MergeSort()
