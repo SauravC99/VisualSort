@@ -18,6 +18,7 @@ from algorithms.MergeSort import MergeSort
 from algorithms.QuickSort import QuickSort
 from algorithms.QuickSortLR import QuickSortLR
 from algorithms.SelectionSort import SelectionSort
+from algorithms.ShellSort import ShellSort
 
 from enum import Enum
 
@@ -32,6 +33,7 @@ class AlgoList(Enum):
     QUICKSORT = QuickSort()
     QUICKSORTLR = QuickSortLR()
     SELECTIONSORT = SelectionSort()
+    SHELLSORT = ShellSort()
 
 #Plot Parameters
 plt.rcParams["font.size"] = 16
