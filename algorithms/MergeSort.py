@@ -39,4 +39,4 @@ class MergeSort(InterfaceSortAlgo):
                 start2 += 1
 
     def getName(self):
-        return "Merge Sort"
+        return "Merge Sort (in place)"
