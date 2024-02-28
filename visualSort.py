@@ -10,6 +10,7 @@ from ArrayTracker import ArrayTracker
 from sound.GenerateSoundData import GenerateSoundData
 from InterfaceSortAlgo import InterfaceSortAlgo
 
+from algorithms.BogoSort import BogoSort
 from algorithms.BubbleSort import BubbleSort
 from algorithms.CocktailSort import CocktailSort
 from algorithms.InsertionSort import InsertionSort
@@ -25,6 +26,7 @@ from enum import Enum
 
 
 class AlgoList(Enum):
+    BOGOSORT = BogoSort()
     BUBBLESORT = BubbleSort()
     COCKTAILSORT = CocktailSort()
     INSERTIONSORT = InsertionSort()
@@ -196,6 +198,9 @@ def main(args):
             exit(1)
         else:
             algo = AlgoList[args.algorithm.upper()].value
+        #if bogosort is chosen without specifying n, default n is 4
+        if args.algorithm.upper() == "BOGOSORT" and not args.number:
+            n = 4
     
     precheck()
     setGlobalVariables(n, fps, args.rainbow)
