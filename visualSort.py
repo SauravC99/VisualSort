@@ -16,6 +16,7 @@ from algorithms.CocktailSort import CocktailSort
 from algorithms.InsertionSort import InsertionSort
 from algorithms.InsertionSort2 import InsertionSort2
 from algorithms.MergeSort import MergeSort
+from algorithms.MergeSort2 import MergeSort2
 from algorithms.QuickSort import QuickSort
 from algorithms.QuickSortLR import QuickSortLR
 from algorithms.SelectionSort import SelectionSort
@@ -32,6 +33,7 @@ class AlgoList(Enum):
     INSERTIONSORT = InsertionSort()
     INSERTIONSORT2 = InsertionSort2()
     MERGESORT = MergeSort()
+    MERGESORT2 = MergeSort2()
     QUICKSORT = QuickSort()
     QUICKSORTLR = QuickSortLR()
     SELECTIONSORT = SelectionSort()
