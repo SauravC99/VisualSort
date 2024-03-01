@@ -13,6 +13,7 @@ from InterfaceSortAlgo import InterfaceSortAlgo
 from algorithms.BogoSort import BogoSort
 from algorithms.BubbleSort import BubbleSort
 from algorithms.CocktailSort import CocktailSort
+from algorithms.GnomeSort import GnomeSort
 from algorithms.InsertionSort import InsertionSort
 from algorithms.InsertionSort2 import InsertionSort2
 from algorithms.MergeSort import MergeSort
@@ -30,6 +31,7 @@ class AlgoList(Enum):
     BOGOSORT = BogoSort()
     BUBBLESORT = BubbleSort()
     COCKTAILSORT = CocktailSort()
+    GNOMESORT = GnomeSort()
     INSERTIONSORT = InsertionSort()
     INSERTIONSORT2 = InsertionSort2()
     MERGESORT = MergeSort()
