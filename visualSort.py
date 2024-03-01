@@ -215,6 +215,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--list", action="store_true",
                         help="Display the list of sorting algorithms avaliable.")
+    parser.add_argument("-lv", "--listverb", action="store_true",
+                        help="Display a verbose list of sorting algorithms.")
     parser.add_argument("-a", "--algorithm",
                         help="Specify which sorting algorithm to use. Run with '-l' to see the list.")
     parser.add_argument("-n", "--number", type=int,
@@ -228,5 +230,17 @@ if __name__ == "__main__":
     if args.list:
         for algorithm in AlgoList:
             print(algorithm.name)
+    elif args.listverb:
+        for algorithm in AlgoList:
+            if algorithm.name == "MERGESORT":
+                print(f"{algorithm.name}        (subarrays)")
+            elif algorithm.name == "MERGESORT2":
+                print(f"{algorithm.name}       (in place)")
+            elif algorithm.name == "QUICKSORT":
+                print(f"{algorithm.name}        (right pivot)")
+            elif algorithm.name == "QUICKSORTLR":
+                print(f"{algorithm.name}      (LR pointers)")
+            else:
+                print(algorithm.name)
     else:
         main(args)
