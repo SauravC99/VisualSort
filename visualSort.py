@@ -14,6 +14,7 @@ from algorithms.BogoSort import BogoSort
 from algorithms.BubbleSort import BubbleSort
 from algorithms.CocktailSort import CocktailSort
 from algorithms.CombSort import CombSort
+from algorithms.CountingSort import CountingSort
 from algorithms.GnomeSort import GnomeSort
 from algorithms.InsertionSort import InsertionSort
 from algorithms.InsertionSort2 import InsertionSort2
@@ -34,6 +35,7 @@ class AlgoList(Enum):
     BUBBLESORT = BubbleSort()
     COCKTAILSORT = CocktailSort()
     COMBSORT = CombSort()
+    COUNTINGSORT = CountingSort()
     GNOMESORT = GnomeSort()
     INSERTIONSORT = InsertionSort()
     INSERTIONSORT2 = InsertionSort2()
