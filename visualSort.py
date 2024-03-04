@@ -23,6 +23,7 @@ from algorithms.MergeSort2 import MergeSort2
 from algorithms.PigeonholeSort import PigeonholeSort
 from algorithms.QuickSort import QuickSort
 from algorithms.QuickSortLR import QuickSortLR
+from algorithms.RadixSort import RadixSort
 from algorithms.SelectionSort import SelectionSort
 from algorithms.ShellSort import ShellSort
 from algorithms.TimSort import TimSort
@@ -45,6 +46,7 @@ class AlgoList(Enum):
     PIGEONHOLESORT = PigeonholeSort()
     QUICKSORT = QuickSort()
     QUICKSORTLR = QuickSortLR()
+    RADIXSORT = RadixSort()
     SELECTIONSORT = SelectionSort()
     SHELLSORT = ShellSort()
     TIMSORT = TimSort()
