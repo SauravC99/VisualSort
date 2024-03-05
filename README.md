@@ -2,6 +2,9 @@
 
 Visual Sort is a program will let you visualize different sorting algorithms and generate beautiful videos with sound. 
 
+![merge](/examples/Merge30.gif)
+![quickR](/examples/QuickR30.gif)
+
 Supported algorithms are:
 - Bogo Sort
 - Bubble Sort
@@ -75,6 +78,11 @@ There are a number of flags and variables you can add or change to generate diff
 
 ## Rainbow mode
 You can run any algorithm with the `-r` flag to sort the colors of the rainbow.
+![mergeR](/examples/MergeR60.gif)
+![radixR](/examples/RadixR60.gif)
+![shellR](/examples/ShellR70.gif)
+![countingR](/examples/CountingR50.gif)
+![quickR2](/examples/QuickR50.gif)
 
 
 ## Examples
@@ -90,3 +98,14 @@ Will generate the same video as above but the graph will be colorful like a rain
 python3 visualSort.py -n 20 -a selectionsort -f 90
 ```
 Will generate a video of 20 elements being sorted using selection sort at 90 fps. This will speed up the video.
+
+--------------------
+
+![tim](/examples/Tim50.gif)
+![bubble](/examples/Bubble15.gif)
+![selection](/examples/Selection20.gif)
+![insertion](/examples/Insertion20.gif)
+![bogo](/examples/Bogo5.gif)
+![shell](/examples/Shell30.gif)
+![radix](/examples/Radix30.gif)
+![quick](/examples/Quick40.gif)
