@@ -1,6 +1,7 @@
 # Visual Sort
 
 Visual Sort is a program will let you visualize different sorting algorithms and generate beautiful videos with sound. 
+You can view some examples in the videos folder.
 
 ![merge](/examples/Merge30.gif)
 ![quickR](/examples/QuickR30.gif)
