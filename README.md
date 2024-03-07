@@ -42,8 +42,20 @@ git clone https://github.com/SauravC99/VisualSort.git
 
 ## Usage
 Run with `-h` to see the list of commands:
-```
-python3 visualSort.py -h
+```console
+$ python3 visualSort.py -h
+usage: visualSort.py [-h] [-l] [-lv] [-a ALGORITHM] [-n NUMBER] [-f FPS] [-r]
+
+options:
+  -h, --help            show this help message and exit
+  -l, --list            Display the list of sorting algorithms avaliable.
+  -lv, --listverb       Display a verbose list of sorting algorithms.
+  -a ALGORITHM, --algorithm ALGORITHM
+                        Specify which sorting algorithm to use. Run with '-l' to see the list.
+  -n NUMBER, --number NUMBER
+                        Specify the number of elements you want to animate sorting. Default 10.
+  -f FPS, --fps FPS     Specify how many frames per second the animation will run. Default 60.
+  -r, --rainbow         Use this flag to make the graph colorful.
 ```
 Run with `-l` to see the list of algorithms:
 ```
