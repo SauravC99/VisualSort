@@ -36,7 +36,7 @@ And this for rainbow mode videos:
 ## Installation
 Clone the repository to your computer:
 ```
-git clone https://github.com/SauravC99/
+git clone https://github.com/SauravC99/VisualSort.git
 ```
 
 
