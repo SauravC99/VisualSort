@@ -31,7 +31,6 @@ from algorithms.TimSort import TimSort
 from enum import Enum
 
 
-
 class AlgoList(Enum):
     BOGOSORT = BogoSort()
     BUBBLESORT = BubbleSort()
@@ -173,6 +172,7 @@ def run(algo: InterfaceSortAlgo):
     print("Making movie")
     t0 = time.perf_counter()
 
+    #original
     cmd = [ 'ffmpeg', '-loglevel', 'quiet', '-y',
             '-r', f'{int(FPS)}',
             '-i', f'frames/{algorithm.getName()}_frame%05d.png',
@@ -180,6 +180,19 @@ def run(algo: InterfaceSortAlgo):
             '-c:v', 'libx264', '-preset', 'veryslow',
             '-c:a', 'aac', '-crf', '0',
             '-map', '0:v', '-map', '1:a', f'{vidFile}']
+    """
+    #Firefox and iOS
+    cmd = [ 'ffmpeg', '-loglevel', 'quiet', '-y',
+            '-r', f'{int(FPS)}',
+            '-i', f'frames/{algorithm.getName()}_frame%05d.png',
+            '-i', f'{soundFile}',
+            '-c:v', 'libx264', '-preset', 'veryslow',
+            '-profile:v', 'high422',
+            '-pix_fmt', 'yuv420p',
+            '-vf', 'pad=ceil(iw/2)*2:ceil(ih/2)*2',
+            '-c:a', 'aac',
+            '-map', '0:v', '-map', '1:a', f'{vidFile}']"
+    """
     subprocess.call(cmd)
 
     dt = time.perf_counter() - t0
