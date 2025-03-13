@@ -1,26 +1,30 @@
 # Visual Sort
 
+> A program that visualizes sorting algorithms with python
+
 Visual Sort is a program will let you visualize different sorting algorithms and generate beautiful videos with sound. 
 You can view some examples in the videos folder.
 
 ![merge](/examples/Merge30.gif)
 ![quickR](/examples/QuickR30.gif)
 
-Supported algorithms are:
-- Bogo Sort
-- Bubble Sort
-- Cocktail Shaker Sort
-- Comb Sort
-- Counting Sort
-- Gnome Sort
-- Insertion Sort and alternate
-- Merge Sort (subarrays and in place)
-- Pigeonhole Sort
-- Quick Sort and alternate
-- Radix Sort
-- Selection Sort
-- Shell Sort
-- Tim Sort
+## Supported Algorithms
+| Algorithm Name |
+| -------------- |
+| Bogo Sort |
+| Bubble Sort |
+| Cocktail Shaker Sort |
+| Comb Sort |
+| Counting Sort |
+| Gnome Sort |
+| Insertion Sort and alternate |
+| Merge Sort (subarrays and in place) |
+| Pigeonhole Sort |
+| Quick Sort and alternate |
+| Radix Sort |
+| Selection Sort |
+| Shell Sort |
+| Tim Sort |
 
 Requires ffmpeg to generate video from frames and add sound.
 
